@@ -1,5 +1,4 @@
 openapi: 3.0.3
-
 info:
   title: "Microservice - Employees"
   description: "A Microservice Employees for Company XPTO"
@@ -12,17 +11,17 @@ info:
     name: "Apache 2.0",
     url: "https://www.apache.org/licenses/LICENSE-2.0.html"
   }
-  version: 1.0.0
+  version: v1.0.0
 
 servers: [
   {
-    url : "https://development.gigantic-server.com/v1",
-    description : "dev",
+    url : "http://localhost:8280/v1/employees/",
+    description : "Optional dev mode server description"
   }
 ]
 tags:
   - name: Employees
-    description: Employees Data
+    description: Employees Crud Data
 paths:
   /employees:
     get:
@@ -31,32 +30,34 @@ paths:
       summary: Returns all employees from the system
       description: Returns all employees from the system that the user has access to the employee
       operationId: getEmployees
-      parameters: []
       responses:
         '200':
           description: Correct operation of get all Employees
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmployeeResponse'
-        #'401':
-        #  description: Unauthorize
-        #  content:
-        #    application/json:
-        #      schema:
-        #          $ref: '#/components/schemas/ErrorResponse'
-        #'500':
-        #  description: Internal Server Error
-        #  content:
-        #    application/json:
-        #      schema:
-        #          $ref: '#/components/schemas/ErrorResponse'
-        #default:
-        #  description: Generic Erorr - Unknown Error
-        #  content:
-        #    application/json:
-        #      schema:
-        #        $ref: '#/components/schemas/UnknownError'
+                type: array
+                items: {
+                  $ref: '#/components/schemas/EmployeeResponse'
+                }
+        '401':
+          description: Unauthorize
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Generic Error - Unknown Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     post:
       tags:
         - Employees
@@ -77,26 +78,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EmployeeResponse'
-                  #'401':
-                  #  description: Unauthorize
-                  #  content:
-                  #    application/json:
-                  #      schema:
-                  #          $ref: '#/components/schemas/ErrorResponse'
-
-        #'500':
-        #  description: Internal Server Error
-        #  content:
-        #    application/json:
-        #      schema:
-        #        $ref: '#/components/schemas/ErrorResponse'
-
-        #default:
-        #  description: Generic Erorr - Unknown Error
-        #  content:
-        #    application/json:
-        #      schema:
-        #        $ref: '#/components/schemas/UnknownError'
+        '401':
+          description: Unauthorize
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Generic Error - Unknown Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /employees/{employeeId}:
     get:
@@ -114,33 +113,30 @@ paths:
             type: integer
             format: int64
       responses:
-        '200':
-          description: Correct operation of get EmployeeById
+        '201':
+          description: Correct operation of create Employee
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/EmployeeResponse'
-                  #'401':
-                  #  description: Unauthorize
-                  #  content:
-                  #    application/json:
-                  #      schema:
-                  #          $ref: '#/components/schemas/ErrorResponse'
-
-        #'500':
-        #  description: Internal Server Error
-        #  content:
-        #    application/json:
-        #      schema:
-        #          $ref: '#/components/schemas/ErrorResponse'
-
-        #default:
-        #  description: Generic Erorr - Unknown Error
-        #  content:
-        #    application/json:
-        #      schema:
-        #        $ref: '#/components/schemas/UnknownError'
-
+        '401':
+          description: Unauthorize
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Generic Error - Unknown Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     put:
       tags:
         - "Employees"
@@ -168,33 +164,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EmployeeResponse'
-          #'400':
-          #  description: "Invalid ID supplied"
-
-        #'401':
-        #  description: Unauthorize
-        #  content:
-        #    application/json:
-        #      schema:
-        #          $ref: '#/components/schemas/ErrorResponse'
-        #'404':
-        #  description: "Pet not found"
-        #"405":
-        #  description: "Validation exception"
-
-        #'500':
-        #  description: Internal Server Error
-        #  content:
-        #    application/json:
-        #      schema:
-        #          $ref: '#/components/schemas/ErrorResponse'
-
-        #default:
-        #  description: Generic Erorr - Unknown Error
-        #  content:
-        #    application/json:
-        #      schema:
-        #        $ref: '#/components/schemas/UnknownError'
+        '401':
+          description: Unauthorize
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: "Employee not found"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Generic Error - Unknown Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     delete:
       tags:
         - Employees
@@ -212,100 +201,90 @@ paths:
       responses:
         '204':
           description: employee deleted
+        '401':
+          description: Unauthorize
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: "Employee not found"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Generic Error - Unknown Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
-            #'401':
-            #  description: Unauthorize
-            #  content:
-            #    application/json:
-            #      schema:
-            #          $ref: '#/components/schemas/ErrorResponse'
-
-        #'500':
-        #  description: Internal Server Error
-        #  content:
-        #    application/json:
-        #      schema:
-        #          $ref: '#/components/schemas/ErrorResponse'
-
-        #default:
-        #  description: Generic Erorr - Unknown Error
-        #  content:
-        #    application/json:
-        #      schema:
-        #        $ref: '#/components/schemas/UnknownError'
 components:
   schemas:
+    AllEmployeesResponse:
+      type: array
+      items:
+        type: object
+        required:
+          - id
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        employeeName:
+          type: string
+        employeeAddress:
+          type: string
+        employeeNumber:
+          type: string
+        employeeType:
+          type: string
     EmployeeRequest:
-      allOf:
-        - $ref: '#/components/schemas/EmployeeRequest'
-        - type: object
-          required:
-            - employeeName
-            - employeeAddress
-            - employeeNumber
-            - employeeType
-          properties:
-            employeeName:
-              type: string
-            employeeAddress:
-              type: string
-            employeeNumber:
-              type: string
-            employeeType:
-              type: string
+      type: object
+      required:
+        - employeeName
+        - employeeAddress
+        - employeeNumber
+        - employeeType
+      properties:
+        employeeName:
+          type: string
+        employeeAddress:
+          type: string
+        employeeNumber:
+          type: string
+        employeeType:
+          type: string
     EmployeeResponse:
-      allOf:
-        - $ref: '#/components/schemas/EmployeeResponse'
-        - type: object
-          required:
-            - id
-          properties:
-            employeeId:
-              type: integer
-              format: int64
-            employeeName:
-              type: string
-            employeeAddress:
-              type: string
-            employeeNumber:
-              type: string
-            employeeType:
-              type: string
-    #ErrorResponse:
-    #  type: object
-    #  required:
-    #    - name
-    #  properties:
-    #    name:
-    #      type: string
-    #    tag:
-    #      type: string
-    #UnknownError:
-    #  type: object
-    #  required:
-    #    - message
-    #  properties:
-    #    message:
-    #      type: string
-
-    #CreateEmployeeResponse:
-    #  type: object
-    #  required:
-    #    - message
-    #  properties:
-    #    message:
-    #      type: string
-    #Employee:
-    #  type: object
-    #  required:
-    #    - message
-    #  properties:
-    #    message:
-    #      type: string
-    #UpdateEmployeeRequest:
-    #  type: object
-    #  required:
-    #    - message
-    #  properties:
-    #    message:
-    #      type: string
+      type: object
+      required:
+        - id
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        employeeName:
+          type: string
+        employeeAddress:
+          type: string
+        employeeNumber:
+          type: string
+        employeeType:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+        - name
+      properties:
+        application:
+          type: string
+          example: 'Microservice - Employees'
+        message:
+          type: string
+          example: 'Error Message'
+        description:
+          type: string
+          example: 'Description'

@@ -1,5 +1,10 @@
 package br.com.roberto.solidprinciples.repositories;
 
-public interface EmployeeRepository {
-    void save();
+import br.com.roberto.solidprinciples.entities.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+
 }
