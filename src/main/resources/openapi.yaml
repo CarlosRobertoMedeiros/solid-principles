@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.0.1
 info:
   title: "Microservice - Employees"
   description: "A Microservice Employees for Company XPTO"
@@ -52,12 +52,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-#        default:
-#          description: Generic Error - Unknown Error
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/ErrorResponse'
+    #        default:
+    #          description: Generic Error - Unknown Error
+    #          content:
+    #            application/json:
+    #              schema:
+    #                $ref: '#/components/schemas/ErrorResponse'
     post:
       tags:
         - Employees
@@ -68,7 +68,7 @@ paths:
         description: Employee to add to the store
         required: true
         content:
-          application/x-www-form-urlencoded:
+          application/json:
             schema:
               $ref: '#/components/schemas/EmployeeRequest'
       responses:

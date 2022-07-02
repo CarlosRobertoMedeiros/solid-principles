@@ -1,16 +1,13 @@
 package br.com.roberto.solidprinciples.transportlayer.restapi;
 
 import br.com.roberto.solidprinciples.interactors.EmployeeUseCase;
+import br.com.roberto.solidprinciples.transportlayer.dto.EmployeeDto;
 import br.com.roberto.solidprinciples.transportlayer.openapi.api.EmployeesApi;
 import br.com.roberto.solidprinciples.transportlayer.openapi.model.EmployeeResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /*
@@ -28,6 +25,7 @@ public class EmployeeRestImpl implements EmployeesApi {
     }
 
     @Override
+    @GetMapping()
     public ResponseEntity<List<EmployeeResponse>> getEmployees() {
         List<EmployeeResponse> employees;
         employees = this.employeeUseCase.getEmployees();
@@ -38,12 +36,17 @@ public class EmployeeRestImpl implements EmployeesApi {
     }
 
     @PostMapping()
-    public ResponseEntity<EmployeeResponse> save(@Valid @RequestBody String employeeName,
-                     @Valid @RequestBody String employeeAddress,
-                     @Valid @RequestBody String employeeNumber,
-                     @Valid @RequestBody String employeeType) {
-        EmployeeRequest employeeRequest = new EmployeeRequest(employeeName,employeeAddress,employeeNumber,employeeType);
-        EmployeeResponse employeeResponse = this.employeeUseCase.save(employeeRequest);
+    public ResponseEntity<EmployeeResponse> save(@RequestBody String employeeName,
+                      String employeeAddress,
+                      String employeeNumber,
+                      String employeeType) {
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setEmployeeName(employeeName);
+        employeeDto.setEmployeeAddress(employeeAddress);
+        employeeDto.setEmployeeNumber(employeeNumber);
+        employeeDto.setEmployeeType(employeeType);
+
+        EmployeeResponse employeeResponse = this.employeeUseCase.save(employeeDto);
 
         if(employeeResponse==null){
             return ResponseEntity.noContent().build();

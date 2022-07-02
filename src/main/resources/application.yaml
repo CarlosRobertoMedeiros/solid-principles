@@ -9,10 +9,10 @@ spring:
     #  matching-strategy: ant_path_matcher
 
   #Inicializador de Dados
-  sql:
-    init:
-      schema-locations: classpath:db\schema.sql
-      data-locations: classpath:db\data.sql
+#  sql:
+#    init:
+#      schema-locations: classpath:db\schema.sql
+#      data-locations: classpath:db\data.sql
 
   #Banco de Dados
   datasource:

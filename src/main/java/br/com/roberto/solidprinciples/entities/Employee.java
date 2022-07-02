@@ -1,15 +1,8 @@
 package br.com.roberto.solidprinciples.entities;
 
-import lombok.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
-import org.springframework.context.annotation.Bean;
-
-import javax.annotation.Generated;
 import javax.persistence.*;
 
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "Tb_Employee")
 public class Employee {
@@ -20,6 +13,13 @@ public class Employee {
     private String employeeAdress;
     private String employeeNumber;
     private String employeeType;
+
+    public Employee(String employeeName, String employeeAdress, String employeeNumber, String employeeType) {
+        this.employeeName = employeeName;
+        this.employeeAdress = employeeAdress;
+        this.employeeNumber = employeeNumber;
+        this.employeeType = employeeType;
+    }
 
     public Long getEmployeeId() {
         return employeeId;

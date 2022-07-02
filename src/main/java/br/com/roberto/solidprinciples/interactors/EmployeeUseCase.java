@@ -4,7 +4,7 @@ import br.com.roberto.solidprinciples.entities.Employee;
 import br.com.roberto.solidprinciples.repositories.EmployeeRepository;
 import br.com.roberto.solidprinciples.transportlayer.mapper.EmployeeMapper;
 import br.com.roberto.solidprinciples.transportlayer.openapi.model.EmployeeResponse;
-import br.com.roberto.solidprinciples.transportlayer.restapi.EmployeeRequest;
+import br.com.roberto.solidprinciples.transportlayer.dto.EmployeeDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,15 +35,20 @@ public class EmployeeUseCase {
         });
         return empregadosResponse;
     }
-    public EmployeeResponse save(EmployeeRequest employeeRequest){
-        Employee employee = new Employee(null,
-                                        employeeRequest.getEmployeeName(),
+    public EmployeeResponse save(EmployeeDto employeeRequest){
+        Employee employee = new Employee(employeeRequest.getEmployeeName(),
                                         employeeRequest.getEmployeeAddress(),
                                         employeeRequest.getEmployeeNumber(),
                                         employeeRequest.getEmployeeType());
-        employeeRepository.save(employee);
 
-        return null;
+        Employee employeeInterno = employeeRepository.save(employee);
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+        employeeResponse.setEmployeeId(employeeInterno.getEmployeeId());
+        employeeResponse.setEmployeeName(employeeInterno.getEmployeeName());
+        employeeResponse.setEmployeeAddress(employeeInterno.getEmployeeAdress());
+        employeeResponse.setEmployeeNumber(employeeInterno.getEmployeeNumber());
+        employeeResponse.setEmployeeType(employeeInterno.getEmployeeType());
+        return employeeResponse;
     }
 //
 //    public List<EmployeeResponse> getEmployees() {
