@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
+/*
+    Link do openapi
+    //http://localhost:8280/swagger-ui/index.html#/
+ */
 @RestController
 @RequestMapping("/v1/employees")
 public class EmployeeRestImpl implements EmployeesApi {
@@ -26,7 +30,7 @@ public class EmployeeRestImpl implements EmployeesApi {
     @Override
     public ResponseEntity<List<EmployeeResponse>> getEmployees() {
         List<EmployeeResponse> employees;
-        employees = employeeUseCase.getEmployees();
+        employees = this.employeeUseCase.getEmployees();
         if(employees.isEmpty()){
             return ResponseEntity.noContent().build();
         }
@@ -82,3 +86,5 @@ public class EmployeeRestImpl implements EmployeesApi {
 //        this.employeeUseCase.deleteEmployeeById(employeeId);
 //    }
 }
+
+

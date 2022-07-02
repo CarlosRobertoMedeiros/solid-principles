@@ -4,7 +4,6 @@ import br.com.roberto.solidprinciples.entities.Employee;
 import br.com.roberto.solidprinciples.repositories.EmployeeRepository;
 import br.com.roberto.solidprinciples.transportlayer.mapper.EmployeeMapper;
 import br.com.roberto.solidprinciples.transportlayer.openapi.model.EmployeeResponse;
-//import br.com.roberto.solidprinciples.transportlayer.restapi.to.EmployeeTo;
 import br.com.roberto.solidprinciples.transportlayer.restapi.EmployeeRequest;
 import org.springframework.stereotype.Service;
 
@@ -37,19 +36,14 @@ public class EmployeeUseCase {
         return empregadosResponse;
     }
     public EmployeeResponse save(EmployeeRequest employeeRequest){
-        Employee employee = new Employee();
-        employee.setEmployeeAdress(employeeRequest.getEmployeeAddress());
-        employee.setEmployeeType(employeeRequest.getEmployeeType());
-        employee.setEmployeeNumber(employeeRequest.getEmployeeNumber());
-        employee.setEmployeeName(employeeRequest.getEmployeeName());
-        Employee employeeInterno = employeeRepository.save(employee);
-        EmployeeResponse employeeResponse = new EmployeeResponse();
-        employeeResponse.setEmployeeId(employeeInterno.getEmployeeId());
-        employeeResponse.setEmployeeType(employeeInterno.getEmployeeType());
-        employeeResponse.setEmployeeNumber(employeeInterno.getEmployeeNumber());
-        employeeResponse.setEmployeeAddress(employeeInterno.getEmployeeAdress());
-        employeeResponse.setEmployeeName(employeeInterno.getEmployeeName());
-        return employeeResponse;
+        Employee employee = new Employee(null,
+                                        employeeRequest.getEmployeeName(),
+                                        employeeRequest.getEmployeeAddress(),
+                                        employeeRequest.getEmployeeNumber(),
+                                        employeeRequest.getEmployeeType());
+        employeeRepository.save(employee);
+
+        return null;
     }
 //
 //    public List<EmployeeResponse> getEmployees() {

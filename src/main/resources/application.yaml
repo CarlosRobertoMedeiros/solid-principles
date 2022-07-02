@@ -4,31 +4,38 @@ server:
 spring:
   application:
     name: Crud-Employee
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+  #mvc:
+    #pathmatch:
+    #  matching-strategy: ant_path_matcher
 
+  #Inicializador de Dados
+  sql:
+    init:
+      schema-locations: classpath:db\schema.sql
+      data-locations: classpath:db\data.sql
 
-springdoc:
-  title: Employees API
-  version: 1.0.0
+  #Banco de Dados
+  datasource:
+    url: jdbc:h2:mem:bancotestdb
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+    initialization-mode: always
 
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
 
-#Banco de Dados
-datasource:
-  url: jdbc:h2:mem:testdb
-  driverClassName: org.h2.Driver
-  username: sa
-  password:
-
-jpa:
-  database-platform: org.hibernate.dialect.H2Dialect
-  hibernate:
-    ddl-auto: update
-
+#Interface Web h2 Database
 h2:
   console:
     enabled: true
     path: /h2-console
     settings:
       web-allow-others: true
+
+#Minhas Variáveis
+springdoc:
+  title: Employees API
+  version: 1.0.0

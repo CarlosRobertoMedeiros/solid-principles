@@ -60,23 +60,11 @@
 		</dependency>
 
 		<!-- Ferramentas -->
-<!--		<dependency>-->
-<!--			<groupId>io.springfox</groupId>-->
-<!--			<artifactId>springfox-boot-starter</artifactId>-->
-<!--			<version>3.0.0</version>-->
-<!--		</dependency>-->
-
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.6.4</version>
 		</dependency>
-
-<!--		<dependency>-->
-<!--			<groupId>io.springfox</groupId>-->
-<!--			<artifactId>springfox-swagger-ui</artifactId>-->
-<!--			<version>3.0.0</version>-->
-<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
@@ -114,11 +102,6 @@
 
 	<build>
 		<plugins>
-<!--			<plugin>-->
-<!--				<groupId>org.springframework.boot</groupId>-->
-<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--			</plugin>-->
-
 			<!--Open Api Pluggin -->
 			<plugin>
 				<groupId>org.openapitools</groupId>
@@ -130,7 +113,7 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/employee.yaml</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
 							<generatorName>spring</generatorName>
 							<apiPackage>br.com.roberto.solidprinciples.transportlayer.openapi.api</apiPackage>
 							<modelPackage>br.com.roberto.solidprinciples.transportlayer.openapi.model</modelPackage>

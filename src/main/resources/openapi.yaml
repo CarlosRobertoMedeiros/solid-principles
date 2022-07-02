@@ -31,7 +31,7 @@ paths:
       description: Returns all employees from the system that the user has access to the employee
       operationId: getEmployees
       responses:
-        '200':
+        200:
           description: Correct operation of get all Employees
           content:
             application/json:
@@ -40,24 +40,24 @@ paths:
                 items: {
                   $ref: '#/components/schemas/EmployeeResponse'
                 }
-        '401':
+        401:
           description: Unauthorize
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        '500':
+        500:
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        default:
-          description: Generic Error - Unknown Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+#        default:
+#          description: Generic Error - Unknown Error
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ErrorResponse'
     post:
       tags:
         - Employees
@@ -224,24 +224,6 @@ paths:
 
 components:
   schemas:
-    AllEmployeesResponse:
-      type: array
-      items:
-        type: object
-        required:
-          - id
-      properties:
-        employeeId:
-          type: integer
-          format: int64
-        employeeName:
-          type: string
-        employeeAddress:
-          type: string
-        employeeNumber:
-          type: string
-        employeeType:
-          type: string
     EmployeeRequest:
       type: object
       required:
