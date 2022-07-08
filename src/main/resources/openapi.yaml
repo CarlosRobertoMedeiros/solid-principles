@@ -139,7 +139,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     put:
       tags:
-        - "Employees"
+        - Employees
       summary: "Update an existing Employee to refresh"
       description: "Update an existing Employee to refresh"
       operationId: "updateEmployee"
